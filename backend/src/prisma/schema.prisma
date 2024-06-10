@@ -9,7 +9,7 @@ datasource db {
 
 model Task {
   id        Int      @id @default(autoincrement())
-  title     String
+  title     String   @unique
   content   String?
   createdAt DateTime @default(now())
   completed Boolean

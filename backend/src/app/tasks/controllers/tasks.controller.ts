@@ -1,5 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
-import { ITask, UpdateTaskDto } from '@task-manager/shared-lib';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateTaskDto, ITask, UpdateTaskDto } from '@task-manager/shared-lib';
 import { TasksService } from '../services';
 
 @Controller()
@@ -14,6 +22,13 @@ export class TasksController {
   @Get('task/:id')
   async getTask(@Param('id') id: string): Promise<ITask> {
     return this.tasksService.getOneTask(Number(id));
+  }
+
+  @Post('task/create')
+  async createTask(
+    @Body('createTaskDto') createTaskDto: CreateTaskDto,
+  ): Promise<ITask> {
+    return this.tasksService.createTask(createTaskDto);
   }
 
   @Put('task/:id')
