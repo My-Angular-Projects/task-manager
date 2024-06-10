@@ -5,17 +5,17 @@ export class TaskDto {
   id!: number;
 
   @IsString()
-  title!: string;
+  title = '';
 
   @IsString()
-  content!: string;
+  content = '';
 
   @IsBoolean()
-  completed!: boolean;
+  completed = false;
 
   @IsDate()
-  createdAt!: Date;
+  createdAt: Date = new Date();
 
   @IsDate()
-  updatedAt!: Date;
+  updatedAt: Date = new Date();
 }

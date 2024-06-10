@@ -6,7 +6,22 @@ import { TaskDto } from '@task-manager/shared-lib';
 export class TasksService {
   constructor(private readonly prismaService: PrismaService) {}
 
+  /**
+   * Get all tasks
+   * @return Promise<TaskDto[]>
+   */
   public async getAllTasks(): Promise<TaskDto[]> {
     return this.prismaService.task.findMany();
+  }
+
+  /**
+   * Get one task
+   * @param {number} id Id task
+   * @return Promise<TaskDto>
+   */
+  public async getOneTask(id: number): Promise<TaskDto> {
+    return this.prismaService.task.findUnique({
+      where: { id },
+    });
   }
 }
