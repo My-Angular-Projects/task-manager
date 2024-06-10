@@ -25,18 +25,16 @@ export class TasksController {
   }
 
   @Post('task/create')
-  async createTask(
-    @Body('createTaskDto') createTaskDto: CreateTaskDto,
-  ): Promise<ITask> {
+  async createTask(@Body() createTaskDto: CreateTaskDto): Promise<ITask> {
     return this.tasksService.createTask(createTaskDto);
   }
 
   @Put('task/:id')
   async updateTask(
-    @Body('taskDto') updateTaskDto: UpdateTaskDto,
+    @Body() updateTaskDto: UpdateTaskDto,
     @Param('id') id: string,
   ): Promise<ITask> {
-    return this.tasksService.updateTask(Number(id), updateTaskDto);
+    return this.tasksService.updateTask(updateTaskDto, Number(id));
   }
 
   @Delete('task/:id')

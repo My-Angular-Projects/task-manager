@@ -1,7 +1,7 @@
-import { IsBoolean, IsDate, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsInt, IsString } from 'class-validator';
 
 export class TaskDto {
-  @IsNumber()
+  @IsInt()
   id!: number;
 
   @IsString()

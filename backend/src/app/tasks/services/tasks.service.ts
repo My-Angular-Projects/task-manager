@@ -38,6 +38,33 @@ export class TasksService {
   }
 
   /**
+   * Update task
+   * @param {UpdateTaskDto} updateTaskDto Task payload
+   * @param {number} id Task id
+   * @return Promise<TaskDto>
+   */
+  public async updateTask(
+    updateTaskDto: UpdateTaskDto,
+    id: number,
+  ): Promise<TaskDto> {
+    const task: TaskDto = await this.prismaService.task.findUnique({
+      where: { id },
+    });
+
+    if (!task) {
+      return;
+    }
+
+    return this.prismaService.task.update({
+      where: { id },
+      data: {
+        title: updateTaskDto.title,
+        content: updateTaskDto.content,
+      },
+    });
+  }
+
+  /**
    * Create new task
    * @param {CreateTaskDto} createTaskDto New task
    * @return Promise<TaskDto>
@@ -50,30 +77,6 @@ export class TasksService {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    });
-  }
-
-  /**
-   * Update task
-   * @param {number} id Task id
-   * @param {UpdateTaskDto} updateTaskDto Task payload
-   * @return Promise<TaskDto>
-   */
-  public async updateTask(
-    id: number,
-    updateTaskDto: UpdateTaskDto,
-  ): Promise<TaskDto> {
-    const task: TaskDto = await this.prismaService.task.findUnique({
-      where: { id },
-    });
-
-    if (!task) {
-      return;
-    }
-
-    return this.prismaService.task.update({
-      where: { id },
-      data: { ...updateTaskDto },
     });
   }
 

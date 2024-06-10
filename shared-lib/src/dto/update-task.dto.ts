@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateTaskDto {
-  @IsNumber()
+  @IsInt()
   @IsNotEmpty()
   id!: number;
 
