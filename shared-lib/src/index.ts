@@ -1,6 +1,3 @@
 export * from './lib/shared-lib';
-
-export * from './dto/task.dto';
-export * from './dto/create-task.dto';
-
-export * from './interface/task.interface';
+export * from './dto';
+export * from './interface';
