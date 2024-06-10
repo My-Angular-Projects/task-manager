@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { TaskDto } from '@task-manager/shared-lib';
+import { TaskDto, UpdateTaskDto } from '@task-manager/shared-lib';
 
 @Injectable()
 export class TasksService {
@@ -16,7 +16,7 @@ export class TasksService {
 
   /**
    * Get one task
-   * @param {number} id Id task
+   * @param {number} id Task id
    * @return Promise<TaskDto>
    */
   public async getOneTask(id: number): Promise<TaskDto> {
@@ -26,8 +26,32 @@ export class TasksService {
   }
 
   /**
+   * Update task
+   * @param {number} id Task id
+   * @param {UpdateTaskDto} updateTaskDto Task payload
+   * @return Promise<TaskDto> Updated task
+   */
+  public async updateTask(
+    id: number,
+    updateTaskDto: UpdateTaskDto,
+  ): Promise<TaskDto> {
+    const task: TaskDto = await this.prismaService.task.findUnique({
+      where: { id },
+    });
+
+    if (!task) {
+      return;
+    }
+
+    return this.prismaService.task.update({
+      where: { id },
+      data: { ...updateTaskDto },
+    });
+  }
+
+  /**
    * Delete task
-   * @param {number} id Id task
+   * @param {number} id Task id
    * @return Promise<TaskDto>
    */
   public async deleteTask(id: number): Promise<TaskDto> {
